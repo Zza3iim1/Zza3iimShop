@@ -54,8 +54,8 @@
     text-align:center;  
   }  
   .card img{  
-    max-width:180px;  
-    max-height:180px;  
+    max-width:200px;  
+    max-height:200px;  
     width:100%;  
     margin:0 auto 14px;  
     border-radius:12px;  
@@ -64,7 +64,6 @@
   .card h3{margin:0 0 8px;font-size:20px}  
   .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}  
 
-  /* مكان Pass و Bundle فوق الشمال */  
   .pill{  
     position:absolute;top:12px;left:12px;  
     display:inline-block;padding:6px 12px;border-radius:999px;font-size:13px;  
@@ -160,7 +159,11 @@
     </div>  
   </div>  
 
+<!-- EmailJS SDK -->  
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>  
 <script>  
+  emailjs.init("d-Sp9xIgxQsYwGR1-"); // User ID  
+
   const CASH_NUMBER = '01124054325';  
   
   const UC_ITEMS = [  
@@ -232,8 +235,22 @@
     idInput.value = nameInput.value = phoneInput.value = '';  
   }  
   function sendOrder(){  
-    alert("Order sent for " + currentItem.title);  
-    closeOrderForm();  
+    const params = {  
+      item: currentItem.title,  
+      price: currentItem.price + " EGP",  
+      game_id: idInput.value,  
+      player_name: nameInput.value,  
+      phone: phoneInput.value  
+    };  
+    emailjs.send("service_0prsur8","template_6myqisi",params)  
+    .then(()=>{  
+      alert("✅ Order sent successfully!");  
+      closeOrderForm();  
+    })  
+    .catch(err=>{  
+      console.error("EmailJS Error:",err);  
+      alert("❌ Failed to send order. Try again.");  
+    });  
   }  
 </script>  
 </body>  
