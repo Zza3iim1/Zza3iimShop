@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>News - Zza3iim Shop</title>
+  <style>
+    :root{
+      --bg:#0b1420;
+      --card:#111b2a;
+      --accent:#2f6df6;
+      --accent-2:#1bb1ff;
+      --text:#e9f1ff;
+      --muted:#98a6c7;
+      --whatsapp-green:#25D366;
+      --whatsapp-gray:#2f2f2f;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      padding:20px;
+    }
+    h1{
+      text-align:center;
+      margin-bottom:20px;
+      text-shadow:0 0 8px rgba(47,109,246,.75);
+    }
+    .chat-container{
+      max-width:800px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+    }
+    .msg{
+      padding:12px 16px;
+      border-radius:15px;
+      max-width:70%;
+      font-size:16px;
+      line-height:1.4;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      animation:fadeIn .5s ease;
+    }
+    .msg.left{
+      align-self:flex-start;
+      background:var(--whatsapp-gray);
+      border-bottom-left-radius:5px;
+    }
+    .msg.right{
+      align-self:flex-end;
+      background:var(--whatsapp-green);
+      color:#000;
+      border-bottom-right-radius:5px;
+    }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <h1>📰 Zza3iim Shop News</h1>
+  <div class="chat-container">
+    <div class="msg left">السلام عليكم 👋</div>
+    <div class="msg right">وعليكم السلام ❤️</div>
+    <div class="msg left">🔥 عرض جديد: شحن شدات ببجي خصم 20%</div>
+    <div class="msg right">تمام! العرض مستمر لحد امتى؟</div>
+    <div class="msg left">📅 العرض ساري لحد يوم 25 الشهر.</div>
+    <div class="msg right">💸 طريقة الدفع زي العادي؟</div>
+    <div class="msg left">✅ اه طبعًا، متاح فودافون كاش ووسائل تانية.</div>
+    <div class="msg right">جامد 👌 شكرا يا زعيم.</div>
+  </div>
+</body>
+</html>
