@@ -1,160 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>PUBG Mobile Shop</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0b1420;
-    --card:#111b2a;
-    --accent:#2f6df6;
-    --accent-2:#1bb1ff;
-    --text:#e9f1ff;
-    --muted:#98a6c7;
-    --good:#6ee7a8;
-    --danger:#ff6b6b;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%,#0b1420 100%);
-    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  }
-  .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}
-  .title{
-    text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;
-    text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);
-    animation:floatIn .6s ease-out both;
-  }
-  .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;
-    background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}
-  .tab{
-    flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;
-    font-weight:700;transition:.25s;user-select:none;
-    color:var(--muted);
-  }
-  .tab.active{color:#fff;background:linear-gradient(180deg,var(--accent),#1342c4);box-shadow:0 8px 28px rgba(47,109,246,.35)}
-  .tab:not(.active):hover{color:#dbe7ff;background:rgba(255,255,255,.06)}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUBG Mobile Shop</title>
+  <style>
+    body{
+      margin:0;background:#050d18;color:#fff;font-family:sans-serif
+    }
+    header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 20px;background:#0b1420;position:sticky;top:0;z-index:1000
+    }
+    header h1{font-size:20px;margin:0}
+    nav a{margin-left:14px;color:#b7c5e6;text-decoration:none;font-size:15px}
+    .grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:16px;padding:20px
+    }
+    .card{
+      background:#0b1420;padding:14px;border-radius:16px;text-align:center;
+      box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .2s
+    }
+    .card:hover{transform:translateY(-4px)}
+    .card img{
+      width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:10px
+    }
+    .card h3{margin:8px 0;font-size:17px}
+    .pill{
+      display:inline-block;padding:3px 10px;border-radius:999px;
+      font-size:12px;background:#1e2a3a;color:#fff;margin-bottom:6px
+    }
+    .price{color:#4ade80;font-weight:600;margin:6px 0}
+    .btn{
+      display:inline-block;background:#1d4ed8;color:#fff;border:none;
+      padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;
+      transition:background .2s;font-size:14px;text-align:center
+    }
+    .btn:hover{background:#2563eb}
+    .btn.glow{box-shadow:0 0 12px rgba(37,99,235,.5)}
 
-  .section{display:none}
-  .section.active{display:block}
-
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}
-
-  .card{
-    background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:18px;padding:20px;position:relative;overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,0.03);
-    animation:fadeUp .45s ease both;
-    text-align:center;
-  }
-  /* الصور في UC عادية */
-  .card img{
-    max-width:120px;
-    margin:12px auto;
-    border-radius:12px;
-  }
-  /* صور الـ Shop أكبر */
-  .card.shop img{
-    width:100%;
-    max-width:280px;
-    height:200px;
-    object-fit:cover;
-    border-radius:14px;
-    margin:16px auto;
-    display:block;
-  }
-  .card h3{margin:0 0 8px;font-size:20px}
-  .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}
-
-  /* التاج (Pass / Bundle) فوق الكارت على الشمال */
-  .pill{
-    position:absolute;
-    top:12px;
-    left:12px;
-    display:inline-block;
-    padding:6px 10px;
-    border-radius:999px;
-    font-size:12px;
-    background:rgba(47,109,246,.12);
-    border:1px solid rgba(47,109,246,.4);
-    color:#b8d1ff;
-  }
-
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;width:min(200px,100%);
-    padding:12px 16px;border:none;border-radius:14px;background:linear-gradient(180deg,var(--accent),#1342c4);
-    color:#fff;font-weight:800;letter-spacing:.3px;cursor:pointer;transition:.2s;position:relative;
-    box-shadow:0 10px 30px rgba(47,109,246,.35);
-  }
-  .btn:hover{transform:translateY(-1px);filter:saturate(1.2)}
-  .btn:active{transform:translateY(0)}
-  .btn.glow{animation:glowPulse 2.4s ease-in-out infinite}
-
-  .overlay{position:fixed;inset:0;background:rgba(0,10,20,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:30}
-  .overlay.show{display:flex}
-  .modal{
-    width:min(560px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;padding:20px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;
-    animation:pop .2s ease-out both;
-  }
-  .modal h3{margin:8px 0 14px;font-size:22px}
-  .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-  .field label{font-size:13px;color:#b7c5e6}
-  .input{
-    border:1px solid rgba(255,255,255,.12);background:#0b1420;color:#e9f1ff;border-radius:12px;
-    padding:12px 14px;outline:none;font-size:15px;transition:border .2s, box-shadow .2s
-  }
-  .input:focus{border-color:rgba(47,109,246,.8);box-shadow:0 0 0 3px rgba(47,109,246,.25)}
-  .paynote{
-    margin:12px 0 16px;padding:10px 12px;border-radius:12px;background:rgba(110,231,168,.08);
-    border:1px solid rgba(110,231,168,.35);color:var(--good);font-weight:700
-  }
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  .row .btn{flex:1}
-  .close{
-    position:absolute;right:10px;top:10px;background:transparent;border:none;color:#c8d7ff;
-    font-size:22px;cursor:pointer
-  }
-
-  @keyframes floatIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-  @keyframes glowPulse{
-    0%,100%{box-shadow:0 10px 30px rgba(47,109,246,.35), 0 0 0 0 rgba(47,109,246,.0)}
-    50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177,255,.08)}
-  }
-
-  .method{margin:18px 2px 0;color:#9fb2d9;font-size:13px;text-align:center}
-</style>
+    /* Modal */
+    .overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,.6);display:none;justify-content:center;align-items:center;
+      padding:20px;z-index:2000
+    }
+    .overlay.show{display:flex}
+    .modal{
+      background:#0b1420;padding:20px;border-radius:16px;max-width:400px;width:100%;
+      box-shadow:0 8px 24px rgba(0,0,0,.5);position:relative
+    }
+    .modal h3{margin:10px 0 14px;font-size:22px}
+    .modal .pill{margin-bottom:8px}
+    .price{margin:6px 0}
+    .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+    .field label{font-size:13px;color:#b7c5e6}
+    .input{
+      border:1px solid rgba(255,255,255,.12);background:#0b1420;color:#e9f1ff;border-radius:12px;
+      padding:12px 14px;outline:none;font-size:15px;transition:border .2s, box-shadow .2s
+    }
+    .input:focus{border-color:rgba(47,109,246,.8);box-shadow:0 0 0 3px rgba(47,109,246,.25)}
+    .paynote{
+      margin:12px 0 16px;padding:10px 12px;border-radius:12px;background:rgba(110,231,168,.08);
+      border:1px solid rgba(110,231,168,.35);color:#4ade80;font-weight:700
+    }
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .row .btn{flex:1}
+    .close{
+      position:absolute;right:10px;top:10px;background:transparent;border:none;color:#c8d7ff;
+      font-size:22px;cursor:pointer
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">PUBG Mobile Shop</h1>
-    <div class="tabs" role="tablist">
-      <div class="tab active" data-target="#uc">UC</div>
-      <div class="tab" data-target="#shop">Shop</div>
-    </div>
-    
-    <section id="uc" class="section active">
-      <div class="grid" id="ucGrid"></div>
-    </section>
-    <section id="shop" class="section">
-      <div class="grid" id="shopGrid"></div>
-      <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>
-    </section>
-  </div>
+  <header>
+    <h1>PUBG Mobile Shop</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">News</a>
+    </nav>
+  </header>
 
-  <div class="overlay" id="orderOverlay">
+  <div class="grid" id="shopGrid"></div>
+
+  <!-- Modal -->
+  <div class="overlay" id="overlay">
     <div class="modal">
       <button class="close" onclick="closeOrderForm()">✕</button>
+      <span class="pill" id="chosenTag">–</span>
       <h3 id="modalTitle">Complete Your Order</h3>
-      <p class="pill" id="chosenItem">Item: –</p>
+      <p class="price" id="chosenItem">Item: –</p>
       <p class="price" id="chosenPrice">Price: – EGP</p>
+
       <div class="field">
         <label for="playerId">Your Game ID</label>
         <input id="playerId" class="input" />
@@ -176,76 +115,42 @@
   </div>
 
   <script>
-    const CASH_NUMBER = '01124054325';
-    const UC_ITEMS = [
-      {title:'30 UC',  price:25,  img:'uc.jpg'},
-      {title:'60 UC',  price:45,  img:'uc.jpg'},
-      {title:'334 UC', price:225, img:'uc.jpg'},
-      {title:'678 UC', price:450, img:'uc.jpg'},
-      {title:'1845 UC',price:1125,img:'uc.jpg'},
-      {title:'3940 UC',price:2250,img:'uc.jpg'}
-    ];
-    const SHOP_ITEMS = [
-      {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},
-      {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},
-      {title:'Pass Plus 1–100',  price:1300,tag:'Pass+',img:'passplus.jpg'},
-      {title:'Crystal',          price:135, tag:'Bundle',img:'crystal.jpg'},
-      {title:'First Purchase Bundle', price:45,  tag:'Bundle',img:'firstbundle.jpg'},
-      {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}
+    const items = [
+      { title:"60 UC", price:"25", tag:"UC", img:"uc.jpg" },
+      { title:"Royal Pass", price:"260", tag:"Pass", img:"pass.jpg" },
+      { title:"Bundle Pack", price:"500", tag:"Bundle", img:"bundle.jpg" },
+      { title:"Crystal Pack", price:"120", tag:"Crystal", img:"crystal.jpg" }
     ];
 
-    const ucGrid   = document.getElementById('ucGrid');
-    const shopGrid = document.getElementById('shopGrid');
-
-    function makeCard(item, isShop=false){
-      const card = document.createElement('div');
-      card.className = 'card' + (isShop ? ' shop' : '');
-      card.innerHTML = `
-        ${item.tag ? `<span class="pill">${item.tag}</span>`: ``}
+    const grid = document.getElementById('shopGrid');
+    grid.innerHTML = items.map(item => `
+      <div class="card">
+        <span class="pill">${item.tag}</span>
         <img src="${item.img}" alt="${item.title}">
         <h3>${item.title}</h3>
-        <div class="price">${item.price} EGP</div>
-        <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}')">Buy</button>
-      `;
-      return card;
-    }
+        <p class="price">${item.price} EGP</p>
+        <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}', '${item.tag}')">Buy</button>
+      </div>
+    `).join('');
 
-    UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));
-    SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i, true)));
-
-    document.querySelectorAll('.tab').forEach(tab=>{
-      tab.addEventListener('click', ()=>{
-        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-        tab.classList.add('active');
-        const target = tab.getAttribute('data-target');
-        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-        document.querySelector(target).classList.add('active');
-      });
-    });
-
-    let currentItem = { title:'', price:0 };
-    const overlay = document.getElementById('orderOverlay');
+    const overlay = document.getElementById('overlay');
     const chosenItemEl = document.getElementById('chosenItem');
-    const chosenPriceEl= document.getElementById('chosenPrice');
-    const idInput      = document.getElementById('playerId');
-    const nameInput    = document.getElementById('playerName');
-    const phoneInput   = document.getElementById('phone');
-    const cashNumEl    = document.getElementById('cashNum');
-    cashNumEl.textContent = CASH_NUMBER;
+    const chosenPriceEl = document.getElementById('chosenPrice');
+    const chosenTagEl = document.getElementById('chosenTag');
+    const idInput = document.getElementById('playerId');
 
-    function openOrderForm(title, price){
-      currentItem = {title, price};
+    function openOrderForm(title, price, tag) {
+      chosenTagEl.textContent   = tag;
       chosenItemEl.textContent  = `Item: ${title}`;
       chosenPriceEl.textContent = `Price: ${price} EGP`;
       overlay.classList.add('show');
       idInput.focus();
     }
-    function closeOrderForm(){
+    function closeOrderForm() {
       overlay.classList.remove('show');
-      idInput.value = nameInput.value = phoneInput.value = '';
     }
-    function sendOrder(){
-      alert("Order sent for " + currentItem.title);
+    function sendOrder() {
+      alert("Order sent!");
       closeOrderForm();
     }
   </script>
