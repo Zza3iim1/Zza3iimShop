@@ -43,6 +43,7 @@
 
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   @media(max-width:700px){.grid{grid-template-columns:1fr}}
+
   .card{
     background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);
     border:1px solid rgba(255,255,255,.06);
@@ -51,21 +52,37 @@
     animation:fadeUp .45s ease both;
     text-align:center;
   }
+  /* الصور في UC عادية */
   .card img{
     max-width:120px;
-    margin-bottom:10px;
+    margin:12px auto;
     border-radius:12px;
   }
-  /* صور التاب Shop أكبر */
-  #shopGrid .card img{
-    max-width:160px;
+  /* صور الـ Shop أكبر */
+  .card.shop img{
+    width:100%;
+    max-width:280px;
+    height:200px;
+    object-fit:cover;
+    border-radius:14px;
+    margin:16px auto;
+    display:block;
   }
-
   .card h3{margin:0 0 8px;font-size:20px}
   .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}
+
+  /* التاج (Pass / Bundle) فوق الكارت على الشمال */
   .pill{
-    display:inline-block;margin-bottom:10px;padding:6px 10px;border-radius:999px;font-size:12px;
-    background:rgba(47,109,246,.12);border:1px solid rgba(47,109,246,.4);color:#b8d1ff
+    position:absolute;
+    top:12px;
+    left:12px;
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:12px;
+    background:rgba(47,109,246,.12);
+    border:1px solid rgba(47,109,246,.4);
+    color:#b8d1ff;
   }
 
   .btn{
@@ -122,11 +139,10 @@
       <div class="tab active" data-target="#uc">UC</div>
       <div class="tab" data-target="#shop">Shop</div>
     </div>
-
+    
     <section id="uc" class="section active">
       <div class="grid" id="ucGrid"></div>
     </section>
-
     <section id="shop" class="section">
       <div class="grid" id="shopGrid"></div>
       <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>
@@ -159,81 +175,79 @@
     </div>
   </div>
 
-<script>
-  const CASH_NUMBER = '01124054325';
+  <script>
+    const CASH_NUMBER = '01124054325';
+    const UC_ITEMS = [
+      {title:'30 UC',  price:25,  img:'uc.jpg'},
+      {title:'60 UC',  price:45,  img:'uc.jpg'},
+      {title:'334 UC', price:225, img:'uc.jpg'},
+      {title:'678 UC', price:450, img:'uc.jpg'},
+      {title:'1845 UC',price:1125,img:'uc.jpg'},
+      {title:'3940 UC',price:2250,img:'uc.jpg'}
+    ];
+    const SHOP_ITEMS = [
+      {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},
+      {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},
+      {title:'Pass Plus 1–100',  price:1300,tag:'Pass+',img:'passplus.jpg'},
+      {title:'Crystal',          price:135, tag:'Bundle',img:'crystal.jpg'},
+      {title:'First Purchase Bundle', price:45,  tag:'Bundle',img:'firstbundle.jpg'},
+      {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}
+    ];
 
-  const UC_ITEMS = [
-    {title:'30 UC',  price:25,  img:'uc.jpg'},
-    {title:'60 UC',  price:45,  img:'uc.jpg'},
-    {title:'334 UC', price:225, img:'uc.jpg'},
-    {title:'678 UC', price:450, img:'uc.jpg'},
-    {title:'1845 UC',price:1125,img:'uc.jpg'},
-    {title:'3940 UC',price:2250,img:'uc.jpg'}
-  ];
+    const ucGrid   = document.getElementById('ucGrid');
+    const shopGrid = document.getElementById('shopGrid');
 
-  const SHOP_ITEMS = [
-    {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},
-    {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},
-    {title:'Pass Plus 1–100',  price:1300,tag:'Pass+',img:'passplus.jpg'},
-    {title:'Crystal',          price:135, tag:'Bundle',img:'crystal.jpg'},
-    {title:'First Purchase Bundle', price:45,  tag:'Bundle',img:'firstbundle.jpg'},
-    {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}
-  ];
+    function makeCard(item, isShop=false){
+      const card = document.createElement('div');
+      card.className = 'card' + (isShop ? ' shop' : '');
+      card.innerHTML = `
+        ${item.tag ? `<span class="pill">${item.tag}</span>`: ``}
+        <img src="${item.img}" alt="${item.title}">
+        <h3>${item.title}</h3>
+        <div class="price">${item.price} EGP</div>
+        <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}')">Buy</button>
+      `;
+      return card;
+    }
 
-  const ucGrid   = document.getElementById('ucGrid');
-  const shopGrid = document.getElementById('shopGrid');
+    UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));
+    SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i, true)));
 
-  function makeCard(item){
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      ${item.tag ? `<span class="pill">${item.tag}</span>`: ``}
-      <img src="${item.img}" alt="${item.title}">
-      <h3>${item.title}</h3>
-      <div class="price">${item.price} EGP</div>
-      <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}')">Buy</button>
-    `;
-    return card;
-  }
-
-  UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));
-  SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i)));
-
-  document.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      const target = tab.getAttribute('data-target');
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      document.querySelector(target).classList.add('active');
+    document.querySelectorAll('.tab').forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.getAttribute('data-target');
+        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+        document.querySelector(target).classList.add('active');
+      });
     });
-  });
 
-  let currentItem = { title:'', price:0 };
-  const overlay = document.getElementById('orderOverlay');
-  const chosenItemEl = document.getElementById('chosenItem');
-  const chosenPriceEl= document.getElementById('chosenPrice');
-  const idInput      = document.getElementById('playerId');
-  const nameInput    = document.getElementById('playerName');
-  const phoneInput   = document.getElementById('phone');
-  const cashNumEl    = document.getElementById('cashNum');
-  cashNumEl.textContent = CASH_NUMBER;
+    let currentItem = { title:'', price:0 };
+    const overlay = document.getElementById('orderOverlay');
+    const chosenItemEl = document.getElementById('chosenItem');
+    const chosenPriceEl= document.getElementById('chosenPrice');
+    const idInput      = document.getElementById('playerId');
+    const nameInput    = document.getElementById('playerName');
+    const phoneInput   = document.getElementById('phone');
+    const cashNumEl    = document.getElementById('cashNum');
+    cashNumEl.textContent = CASH_NUMBER;
 
-  function openOrderForm(title, price){
-    currentItem = {title, price};
-    chosenItemEl.textContent  = `Item: ${title}`;
-    chosenPriceEl.textContent = `Price: ${price} EGP`;
-    overlay.classList.add('show');
-    idInput.focus();
-  }
-  function closeOrderForm(){
-    overlay.classList.remove('show');
-    idInput.value = nameInput.value = phoneInput.value = '';
-  }
-  function sendOrder(){
-    alert("Order sent for " + currentItem.title);
-    closeOrderForm();
-  }
-</script>
+    function openOrderForm(title, price){
+      currentItem = {title, price};
+      chosenItemEl.textContent  = `Item: ${title}`;
+      chosenPriceEl.textContent = `Price: ${price} EGP`;
+      overlay.classList.add('show');
+      idInput.focus();
+    }
+    function closeOrderForm(){
+      overlay.classList.remove('show');
+      idInput.value = nameInput.value = phoneInput.value = '';
+    }
+    function sendOrder(){
+      alert("Order sent for " + currentItem.title);
+      closeOrderForm();
+    }
+  </script>
 </body>
 </html>
