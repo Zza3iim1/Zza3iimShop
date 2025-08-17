@@ -106,4 +106,134 @@
   @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}  
   @keyframes glowPulse{  
     0%,100%{box-shadow:0 10px 30px rgba(47,109,246,.35), 0 0 0 0 rgba(47,109,246,.0)}  
-    50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177
+    50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177,255,.08)}  
+  }  
+  
+  .method{margin:18px 2px 0;color:#9fb2d9;font-size:13px;text-align:center}  
+</style>  
+</head>  
+<body>  
+  <div class="container">  
+    <h1 class="title">PUBG Mobile Shop</h1>  
+    <div class="tabs" role="tablist">  
+      <div class="tab active" data-target="#uc">UC</div>  
+      <div class="tab" data-target="#shop">Shop</div>  
+    </div>  
+
+    <section id="uc" class="section active">  
+      <div class="grid" id="ucGrid"></div>  
+    </section>  
+
+    <section id="shop" class="section">  
+      <div class="grid" id="shopGrid"></div>  
+      <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>  
+    </section>  
+  </div>    
+
+  <div class="overlay" id="orderOverlay">  
+    <div class="modal">  
+      <button class="close" onclick="closeOrderForm()">✕</button>  
+      <h3 id="modalTitle">Complete Your Order</h3>  
+      <p class="pill" id="chosenItem">Item: –</p>  
+      <p class="price" id="chosenPrice">Price: – EGP</p>  
+      <div class="field">  
+        <label for="playerId">Your Game ID</label>  
+        <input id="playerId" class="input" />  
+      </div>  
+      <div class="field">  
+        <label for="playerName">Player Name</label>  
+        <input id="playerName" class="input" />  
+      </div>  
+      <div class="field">  
+        <label for="phone">Phone Number</label>  
+        <input id="phone" class="input" />  
+      </div>  
+
+      <div class="paynote">💳 Transfer to Etisalat Cash: <strong id="cashNum">01124054325</strong></div>  
+
+      <div class="row">  
+        <button class="btn glow" onclick="sendOrder()">Confirm Order</button>  
+        <button class="btn" onclick="closeOrderForm()">Cancel</button>  
+      </div>  
+    </div>  
+  </div>  
+
+<script>  
+  const CASH_NUMBER = '01124054325';  
+  
+  // كل صور UC بقت uc.jpg
+  const UC_ITEMS = [  
+    {title:'30 UC',  price:25,  img:'uc.jpg'},  
+    {title:'60 UC',  price:45,  img:'uc.jpg'},  
+    {title:'334 UC', price:225, img:'uc.jpg'},  
+    {title:'678 UC', price:450, img:'uc.jpg'},  
+    {title:'1845 UC',price:1125,img:'uc.jpg'},  
+    {title:'3940 UC',price:2250,img:'uc.jpg'}  
+  ];  
+  
+  const SHOP_ITEMS = [  
+    {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},  
+    {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},  
+    {title:'Pass Plus 1–100',  price:1300,tag:'Pass+',img:'passplus.jpg'},  
+    {title:'Crystal',          price:135, tag:'Bundle',img:'crystal.jpg'},  
+    {title:'First Purchase Bundle', price:45,  tag:'Bundle',img:'firstbundle.jpg'},  
+    {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}  
+  ];  
+  
+  const ucGrid   = document.getElementById('ucGrid');  
+  const shopGrid = document.getElementById('shopGrid');  
+  
+  function makeCard(item){  
+    const card = document.createElement('div');  
+    card.className = 'card';  
+    card.innerHTML = `  
+      ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}  
+      <img src="${item.img}" alt="${item.title}">  
+      <h3>${item.title}</h3>  
+      <div class="price">${item.price} EGP</div>  
+      <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}')">Buy</button>  
+    `;  
+    return card;  
+  }  
+  
+  UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));  
+  SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i)));  
+  
+  document.querySelectorAll('.tab').forEach(tab=>{  
+    tab.addEventListener('click', ()=>{  
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));  
+      tab.classList.add('active');  
+      const target = tab.getAttribute('data-target');  
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));  
+      document.querySelector(target).classList.add('active');  
+    });  
+  });  
+  
+  let currentItem = { title:'', price:0 };  
+  const overlay = document.getElementById('orderOverlay');  
+  const chosenItemEl = document.getElementById('chosenItem');  
+  const chosenPriceEl= document.getElementById('chosenPrice');  
+  const idInput      = document.getElementById('playerId');  
+  const nameInput    = document.getElementById('playerName');  
+  const phoneInput   = document.getElementById('phone');  
+  const cashNumEl    = document.getElementById('cashNum');  
+  cashNumEl.textContent = CASH_NUMBER;  
+  
+  function openOrderForm(title, price){  
+    currentItem = {title, price};  
+    chosenItemEl.textContent  = `Item: ${title}`;  
+    chosenPriceEl.textContent = `Price: ${price} EGP`;  
+    overlay.classList.add('show');  
+    idInput.focus();  
+  }  
+  function closeOrderForm(){  
+    overlay.classList.remove('show');  
+    idInput.value = nameInput.value = phoneInput.value = '';  
+  }  
+  function sendOrder(){  
+    alert("Order sent for " + currentItem.title);  
+    closeOrderForm();  
+  }  
+</script>  
+</body>  
+</html>
