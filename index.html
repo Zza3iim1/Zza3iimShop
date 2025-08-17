@@ -18,19 +18,23 @@
       background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%);
       color:var(--text);
       font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
     .navbar{
       display:flex;
       align-items:center;
-      justify-content:center; /* وسط */
+      justify-content:center;
       padding:16px 24px;
       background:rgba(17,27,42,0.95);
       position:sticky;
       top:0;
+      z-index:10;
     }
     .tabs{
       display:flex;
-      gap:30px; /* مسافة بين اللينكات */
+      gap:30px;
     }
     .tabs a{
       color:var(--text);
@@ -42,8 +46,9 @@
     .container{
       max-width:900px;
       margin:0 auto;
-      padding:28px 16px 80px;
+      padding:28px 16px 60px;
       text-align:center;
+      flex:1;
     }
     h1{
       font-size:36px;
@@ -73,6 +78,40 @@
       background:linear-gradient(180deg,#20c997,#0ca678);
       box-shadow:0 10px 30px rgba(32,201,151,.35);
     }
+
+    footer {
+      background: #0d1117;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+      margin-top:40px;
+    }
+    footer h3 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+    .footer-links a:hover {opacity: 0.8;}
+    .wa-chat {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+    .wa-group {
+      background: linear-gradient(135deg, #ff6f61, #d7263d);
+    }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -84,60 +123,28 @@
       <a href="offers.html">News</a>
       <a href="shop.html">Shop</a>
       <a href="us.html">Language</a>
-      <!-- WhatsApp Footer -->
-<footer style="
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #0d1117;
-  padding: 15px 0;
-  text-align: center;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
-">
-  <h3 style="color: white; margin-bottom: 10px;">Connect with us on WhatsApp</h3>
-  <div style="display: flex; justify-content: center; gap: 15px;">
-    
-    <!-- WhatsApp Chat -->
-    <a href="https://wa.me/201124054325" target="_blank" style="
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
-      transition: 0.3s;
-    " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-      💬 Chat on WhatsApp
-    </a>
-
-    <!-- WhatsApp Group -->
-    <a href="https://chat.whatsapp.com/GXVNF2SnmFJL1EaCwzDSQB?mode=ac_t" target="_blank" style="
-      background: linear-gradient(135deg, #ff6f61, #d7263d);
-      color: white;
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
-      transition: 0.3s;
-    " onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-      🔗 Join Our Group
-    </a>
+    </div>
   </div>
-</footer>
+
+  <!-- محتوى -->
+  <div class="container">
+    <img src="/logo.jpg" alt="Zza3iim Shop Banner" 
+         style="max-width:200px; height:auto; border-radius:15px; box-shadow:0 0 15px rgba(0,0,0,0.5);">
+         
+    <h1>Welcome to Zza3iim Shop</h1>
+    <p>Select a section from above to explore our offers, shop, or contact us.</p>
+    <a href="shop.html" class="btn">Go to Shop</a>
+    <a href="https://wa.me/201124054325" class="btn support">Support</a>
+  </div>
+
+  <!-- فوتر -->
+  <footer>
+    <h3>Connect with us on WhatsApp</h3>
+    <div class="footer-links">
+      <a href="https://wa.me/201124054325" target="_blank" class="wa-chat">💬 Chat on WhatsApp</a>
+      <a href="https://chat.whatsapp.com/GXVNF2SnmFJL1EaCwzDSQB?mode=ac_t" target="_blank" class="wa-group">🔗 Join Our Group</a>
     </div>
-</div>
-    <div style="text-align:center; margin-top:20px;">
-  <img src="/logo.jpg" alt="Zza3iim Shop Banner" 
-       style="max-width:200px; height:auto; border-radius:15px; box-shadow:0 0 15px rgba(0,0,0,0.5);">
-       
-  <h1 style="color:white; margin-top:15px;">Welcome to Zza3iim Shop</h1>
-  <p style="color:#ccc;">Select a section from above to explore our offers, shop, or contact us.</p>
-  <a href="shop.html" class="btn">Go to Shop</a>
-  <a href="https://wa.me/201124054325" class="btn support">Support</a>
-    </div>
+  </footer>
 
 </body>
 </html>
