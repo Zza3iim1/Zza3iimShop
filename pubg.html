@@ -1,136 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PUBG Mobile Shop</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0d1117;
-      color: #fff;
-      text-align: center;
-    }
-
-    header {
-      background: #111827;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: bold;
-      color: #60a5fa;
-      text-shadow: 0 0 15px rgba(96,165,250,0.8);
-    }
-
-    nav {
-      margin-top: 15px;
-    }
-
-    nav a {
-      margin: 0 10px;
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #fff;
-      border-radius: 10px;
-      transition: 0.3s;
-      font-weight: bold;
-    }
-
-    nav a.active, nav a:hover {
-      background: #2563eb;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .card {
-      position: relative;
-      background: #1f2937;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 350px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      text-align: center;
-    }
-
-    .pass-label {
-      position: absolute;
-      top: 10px;
-      left: 15px;
-      background: #1e3a8a;
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .card img {
-      width: 100%;
-      max-width: 300px;
-      display: block;
-      margin: 0 auto 15px auto;
-      border-radius: 10px;
-    }
-
-    .card h3 {
-      font-size: 20px;
-      margin: 10px 0;
-    }
-
-    .card p {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    .card button {
-      background: #2563eb;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    .card button:hover {
-      background: #1d4ed8;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>PUBG Mobile Shop</h1>
-    <nav>
-      <a href="uc.html">UC</a>
-      <a href="shop.html" class="active">Shop</a>
-    </nav>
-  </header>
-
-  <div class="container">
-    <div class="card">
-      <div class="pass-label">Pass</div>
-      <img src="pass1.jpg" alt="Elite Pass 1-50">
-      <h3>Elite Pass 1–50</h3>
-      <p>260 EGP</p>
-      <button>Buy</button>
-    </div>
-
-    <div class="card">
-      <div class="pass-label">Pass</div>
-      <img src="pass2.jpg" alt="Elite Pass 1-100">
-      <h3>Elite Pass 1–100</h3>
-      <p>540 EGP</p>
-      <button>Buy</button>
-    </div>
-  </div>
-</body>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport" content="width=device-width,initial-scale=1" />  
+<title>PUBG Mobile Shop</title>  
+<link rel="preconnect" href="https://fonts.googleapis.com">  
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">  
+<style>  
+  :root{  
+    --bg:#0b1420;  
+    --card:#111b2a;  
+    --accent:#2f6df6;  
+    --accent-2:#1bb1ff;  
+    --text:#e9f1ff;  
+    --muted:#98a6c7;  
+    --good:#6ee7a8;  
+    --danger:#ff6b6b;  
+  }  
+  *{box-sizing:border-box}  
+  body{  
+    margin:0;background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%,#0b1420 100%);  
+    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;  
+  }  
+  .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}  
+  
+  .title{  
+    text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;  
+    text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);  
+    animation:floatIn .6s ease-out both;  
+  }  
+  
+  .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;  
+        background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}  
+  .tab{  
+    flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;  
+    font-weight:700;transition:.25s;user-select:none;  
+    color:var(--muted);  
+  }  
+  .tab.active{color:#fff;background:linear-gradient(180deg,var(--accent),#1342c4);box-shadow:0 8px 28px rgba(47,109,246,.35)}  
+  .tab:not(.active):hover{color:#dbe7ff;background:rgba(255,255,255,.06)}  
+  
+  .section{display:none}  
+  .section.active{display:block}  
+  
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}  
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}  
+  .card{  
+    background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);  
+    border:1px solid rgba(255,255,255,.06);  
+    border-radius:18px;padding:20px;position:relative;overflow:hidden;  
+    box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,0.03);  
+    animation:fadeUp .45s ease both;  
+    text-align:center;  
+  }  
+  .card img{  
+    max-width:180px;   /* هنا كبرت الصورة بدل 120px */  
+    margin:0 auto 12px;  
+    display:block;  
+    border-radius:12px;  
+  }  
+  .card h3{margin:0 0 8px;font-size:20px}  
+  .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}  
+  
+  /* لابل الباس فوق شمال الكرت */  
+  .label-pass{  
+    position:absolute;  
+    top:12px;  
+    left:12px;  
+    background:linear-gradient(180deg,var(--accent),#1342c4);  
+    padding:4px 10px;  
+    border-radius:10px;  
+    font-size:13px;  
+    font-weight:700;  
+    color:#fff;  
+    box-shadow:0 4px 12px rgba(0,0,0,.35);  
+  }  
+  
+  .btn{  
+    display:inline-flex;align-items:center;justify-content:center;width:min(200px,100%);  
+    padding:12px 16px;border:none;border-radius:14px;background:linear-gradient(180deg,var(--accent),#1342c4);  
+    color:#fff;font-weight:800;letter-spacing:.3px;cursor:pointer;transition:.2s;position:relative;  
+    box-shadow:0 10px 30px rgba(47,109,246,.35);  
+  }  
+  .btn:hover{transform:translateY(-1px);filter:saturate(1.2)}  
+  .btn:active{transform:translateY(0)}  
+  
+  @keyframes floatIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}  
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}  
+</style>  
+</head>  
+<body>  
+  <div class="container">  
+    <h1 class="title">PUBG Mobile Shop</h1>  
+    <div class="grid">  
+      <div class="card">  
+        <div class="label-pass">Pass</div>  
+        <img src="pass1.jpg" alt="Elite Pass 1-50">  
+        <h3>Elite Pass 1–50</h3>  
+        <div class="price">260 EGP</div>  
+        <button class="btn">Buy</button>  
+      </div>  
+      <div class="card">  
+        <div class="label-pass">Pass</div>  
+        <img src="pass2.jpg" alt="Elite Pass 1-100">  
+        <h3>Elite Pass 1–100</h3>  
+        <div class="price">540 EGP</div>  
+        <button class="btn">Buy</button>  
+      </div>  
+    </div>  
+  </div>  
+</body>  
 </html>
