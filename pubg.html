@@ -1,257 +1,130 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-<meta charset="utf-8" />  
-<meta name="viewport" content="width=device-width,initial-scale=1" />  
-<title>PUBG Mobile Shop</title>  
-<link rel="preconnect" href="https://fonts.googleapis.com">  
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">  
-<style>  
-  :root{  
-    --bg:#0b1420;  
-    --card:#111b2a;  
-    --accent:#2f6df6;  
-    --accent-2:#1bb1ff;  
-    --text:#e9f1ff;  
-    --muted:#98a6c7;  
-    --good:#6ee7a8;  
-    --danger:#ff6b6b;  
-  }  
-  *{box-sizing:border-box}  
-  body{  
-    margin:0;background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%,#0b1420 100%);  
-    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;  
-  }  
-  .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}  
-  
-  .title{  
-    text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;  
-    text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);  
-    animation:floatIn .6s ease-out both;  
-  }  
-  
-  .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;  
-        background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}  
-  .tab{  
-    flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;  
-    font-weight:700;transition:.25s;user-select:none;  
-    color:var(--muted);  
-  }  
-  .tab.active{color:#fff;background:linear-gradient(180deg,var(--accent),#1342c4);box-shadow:0 8px 28px rgba(47,109,246,.35)}  
-  .tab:not(.active):hover{color:#dbe7ff;background:rgba(255,255,255,.06)}  
-  
-  .section{display:none}  
-  .section.active{display:block}  
-  
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}  
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}  
-  .card{  
-    background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);  
-    border:1px solid rgba(255,255,255,.06);  
-    border-radius:18px;padding:20px;position:relative;overflow:hidden;  
-    box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,0.03);  
-    animation:fadeUp .45s ease both;  
-    text-align:center;  
-  }  
-  .card img{  
-    max-width:200px;  
-    max-height:200px;  
-    width:100%;  
-    margin:0 auto 14px;  
-    border-radius:12px;  
-    display:block;  
-  }  
-  .card h3{margin:0 0 8px;font-size:20px}  
-  .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}  
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zza3iim Shop</title>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #0b1420;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: #111c2d;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,.4);
+    }
+    .card h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #7da4ff;
+    }
+    .field {
+      text-align: right;
+      margin-bottom: 12px;
+    }
+    label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+      color: #b7c5e6;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #2f6df6;
+      background: #0b1420;
+      color: #e9f1ff;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #2f6df6;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: .3s;
+    }
+    button:hover {
+      background: #1a4bd8;
+    }
+    .success {
+      margin-top: 15px;
+      color: #6ee7a8;
+      font-weight: bold;
+    }
+    .error {
+      margin-top: 15px;
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>طلب جديد من Zza3iim Shop</h2>
+    <form id="orderForm">
+      <div class="field">
+        <label>📦 العرض</label>
+        <select name="orderItem" required>
+          <option value="">-- اختر العرض --</option>
+          <option value="UC 60">UC 60</option>
+          <option value="UC 325">UC 325</option>
+          <option value="UC 660">UC 660</option>
+          <option value="UC 1800">UC 1800</option>
+          <option value="UC 3850">UC 3850</option>
+          <option value="UC 8100">UC 8100</option>
+          <option value="Elite Pass">🎟 Elite Pass</option>
+          <option value="Bundle Offer">🎁 Bundle Offer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>💵 السعر</label>
+        <input type="text" name="orderPrice" required>
+      </div>
+      <div class="field">
+        <label>🆔 ID اللاعب</label>
+        <input type="text" name="playerId" required>
+      </div>
+      <div class="field">
+        <label>👤 اسم اللاعب</label>
+        <input type="text" name="playerName" required>
+      </div>
+      <div class="field">
+        <label>📱 رقم الهاتف</label>
+        <input type="text" name="phone" required>
+      </div>
+      <button type="submit">إرسال الطلب</button>
+    </form>
+    <div id="message"></div>
+  </div>
 
-  .pill{  
-    position:absolute;top:12px;left:12px;  
-    display:inline-block;padding:6px 12px;border-radius:999px;font-size:13px;  
-    background:rgba(47,109,246,.2);border:1px solid rgba(47,109,246,.5);color:#fff;  
-    font-weight:600;  
-  }  
-  
-  .btn{  
-    display:inline-flex;align-items:center;justify-content:center;width:min(200px,100%);  
-    padding:12px 16px;border:none;border-radius:14px;background:linear-gradient(180deg,var(--accent),#1342c4);  
-    color:#fff;font-weight:800;letter-spacing:.3px;cursor:pointer;transition:.2s;position:relative;  
-    box-shadow:0 10px 30px rgba(47,109,246,.35);  
-  }  
-  .btn:hover{transform:translateY(-1px);filter:saturate(1.2)}  
-  .btn:active{transform:translateY(0)}  
-  .btn.glow{animation:glowPulse 2.4s ease-in-out infinite}  
-  
-  .overlay{position:fixed;inset:0;background:rgba(0,10,20,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:30}  
-  .overlay.show{display:flex}  
-  .modal{  
-    width:min(560px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);  
-    border-radius:18px;padding:20px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;  
-    animation:pop .2s ease-out both;  
-  }  
-  .modal h3{margin:8px 0 14px;font-size:22px;text-align:center}  
-  .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}  
-  .field label{font-size:13px;color:#b7c5e6}  
-  .input{  
-    border:1px solid rgba(255,255,255,.12);background:#0b1420;color:#e9f1ff;border-radius:12px;  
-    padding:12px 14px;outline:none;font-size:15px;transition:border .2s, box-shadow .2s  
-  }  
-  .input:focus{border-color:rgba(47,109,246,.8);box-shadow:0 0 0 3px rgba(47,109,246,.25)}  
-  .paynote{  
-    margin:12px 0 16px;padding:10px 12px;border-radius:12px;background:rgba(110,231,168,.08);  
-    border:1px solid rgba(110,231,168,.35);color:var(--good);font-weight:700  
-  }  
-  .row{display:flex;gap:10px;flex-wrap:wrap}  
-  .row .btn{flex:1}  
-  
-  @keyframes floatIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}  
-  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}  
-  @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}  
-  @keyframes glowPulse{  
-    0%,100%{box-shadow:0 10px 30px rgba(47,109,246,.35), 0 0 0 0 rgba(47,109,246,.0)}  
-    50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177,255,.08)}  
-  }  
-  
-  .method{margin:18px 2px 0;color:#9fb2d9;font-size:13px;text-align:center}  
-</style>  
-</head>  
-<body>  
-  <div class="container">  
-    <h1 class="title">PUBG Mobile Shop</h1>  
-    <div class="tabs" role="tablist">  
-      <div class="tab active" data-target="#uc">UC</div>  
-      <div class="tab" data-target="#shop">Shop</div>  
-    </div>  
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("d-Sp9xIgxQsYwGR1-"); // ✅ Public Key
+    })();
 
-    <section id="uc" class="section active">  
-      <div class="grid" id="ucGrid"></div>  
-    </section>  
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    <section id="shop" class="section">  
-      <div class="grid" id="shopGrid"></div>  
-      <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>  
-    </section>  
-  </div>    
-
-  <div class="overlay" id="orderOverlay">  
-    <div class="modal">  
-      <p class="pill" id="chosenItem">Item: –</p>  
-      <h3 id="modalTitle">Complete Your Order</h3>  
-      <p class="price" id="chosenPrice">Price: – EGP</p>  
-      <div class="field">  
-        <label for="playerId">Your Game ID</label>  
-        <input id="playerId" class="input" />  
-      </div>  
-      <div class="field">  
-        <label for="playerName">Player Name</label>  
-        <input id="playerName" class="input" />  
-      </div>  
-      <div class="field">  
-        <label for="phone">Phone Number</label>  
-        <input id="phone" class="input" />  
-      </div>  
-
-      <div class="paynote">💳 Transfer to Etisalat Cash: <strong id="cashNum">01124054325</strong></div>  
-
-      <div class="row">  
-        <button class="btn glow" onclick="sendOrder()">Confirm Order</button>  
-        <button class="btn" onclick="closeOrderForm()">Cancel</button>  
-      </div>  
-    </div>  
-  </div>  
-
-<!-- EmailJS SDK -->  
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>  
-<script>  
-  emailjs.init("d-Sp9xIgxQsYwGR1-"); // User ID  
-
-  const CASH_NUMBER = '01124054325';  
-  
-  const UC_ITEMS = [  
-    {title:'30 UC',  price:25,  img:'uc.jpg'},  
-    {title:'60 UC',  price:45,  img:'uc.jpg'},  
-    {title:'334 UC', price:225, img:'uc.jpg'},  
-    {title:'678 UC', price:450, img:'uc.jpg'},  
-    {title:'1845 UC',price:1125,img:'uc.jpg'},  
-    {title:'3940 UC',price:2250,img:'uc.jpg'}  
-  ];  
-  
-  const SHOP_ITEMS = [  
-    {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},  
-    {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},  
-    {title:'Pass Plus 1–100',  price:1300,tag:'Pass+',img:'passplus.jpg'},  
-    {title:'Crystal',          price:135, tag:'Bundle',img:'crystal.jpg'},  
-    {title:'First Purchase Bundle', price:45,  tag:'Bundle',img:'firstbundle.jpg'},  
-    {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}  
-  ];  
-  
-  const ucGrid   = document.getElementById('ucGrid');  
-  const shopGrid = document.getElementById('shopGrid');  
-  
-  function makeCard(item){  
-    const card = document.createElement('div');  
-    card.className = 'card';  
-    card.innerHTML = `  
-      ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}  
-      <img src="${item.img}" alt="${item.title}">  
-      <h3>${item.title}</h3>  
-      <div class="price">${item.price} EGP</div>  
-      <button class="btn glow" onclick="openOrderForm('${item.title}', '${item.price}')">Buy</button>  
-    `;  
-    return card;  
-  }  
-  
-  UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));  
-  SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i)));  
-  
-  document.querySelectorAll('.tab').forEach(tab=>{  
-    tab.addEventListener('click', ()=>{  
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));  
-      tab.classList.add('active');  
-      const target = tab.getAttribute('data-target');  
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));  
-      document.querySelector(target).classList.add('active');  
-    });  
-  });  
-  
-  let currentItem = { title:'', price:0 };  
-  const overlay = document.getElementById('orderOverlay');  
-  const chosenItemEl = document.getElementById('chosenItem');  
-  const chosenPriceEl= document.getElementById('chosenPrice');  
-  const idInput      = document.getElementById('playerId');  
-  const nameInput    = document.getElementById('playerName');  
-  const phoneInput   = document.getElementById('phone');  
-  const cashNumEl    = document.getElementById('cashNum');  
-  cashNumEl.textContent = CASH_NUMBER;  
-  
-  function openOrderForm(title, price){  
-    currentItem = {title, price};  
-    chosenItemEl.textContent  = title;  
-    chosenPriceEl.textContent = `Price: ${price} EGP`;  
-    overlay.classList.add('show');  
-    idInput.focus();  
-  }  
-  function closeOrderForm(){  
-    overlay.classList.remove('show');  
-    idInput.value = nameInput.value = phoneInput.value = '';  
-  }  
-  function sendOrder(){  
-    const params = {  
-      item: currentItem.title,  
-      price: currentItem.price + " EGP",  
-      game_id: idInput.value,  
-      player_name: nameInput.value,  
-      phone: phoneInput.value  
-    };  
-    emailjs.send("service_0prsur8","template_6myqisi",params)  
-    .then(()=>{  
-      alert("✅ Order sent successfully!");  
-      closeOrderForm();  
-    })  
-    .catch(err=>{  
-      console.error("EmailJS Error:",err);  
-      alert("❌ Failed to send order. Try again.");  
-    });  
-  }  
-</script>  
-</body>  
+      emailjs.sendForm("service_0prsur8", "template_6myqisi", this)
+        .then(function() {
+          document.getElementById("message").innerHTML = "<p class='success'>✅ تم إرسال الطلب بنجاح!</p>";
+        }, function(error) {
+          document.getElementById("message").innerHTML = "<p class='error'>❌ حصل خطأ: " + error.text + "</p>";
+        });
+    });
+  </script>
+</body>
 </html>
