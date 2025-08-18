@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
-    /* -------- نفس الاستايل بتاعك زي ما هو -------- */
     :root{
       --bg:#0b1420;--card:#111b2a;--accent:#2f6df6;--accent-2:#1bb1ff;
       --text:#e9f1ff;--muted:#98a6c7;--good:#6ee7a8;--danger:#ff6b6b;
@@ -18,7 +17,7 @@
       color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;}
     .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}
     .title{text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;
-      text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);animation:floatIn .6s ease-out both;}
+      text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);}
     .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;
       background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}
     .tab{flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;
@@ -32,9 +31,8 @@
     @media(max-width:700px){.grid{grid-template-columns:1fr}}
     .card{background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);
       border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:20px;position:relative;overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,0.03);
-      animation:fadeUp .45s ease both;text-align:center;}
-    .card img{max-width:180px;max-height:180px;width:100%;margin:0 auto 14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.45);text-align:center;}
+    .card img{max-width:200px;max-height:200px;width:100%;margin:0 auto 14px;
       border-radius:12px;display:block;}
     .card h3{margin:0 0 8px;font-size:20px}
     .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}
@@ -52,8 +50,7 @@
       display:none;align-items:center;justify-content:center;z-index:30}
     .overlay.show{display:flex}
     .modal{width:min(560px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;padding:20px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;
-      animation:pop .2s ease-out both;}
+      border-radius:18px;padding:20px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;}
     .modal h3{margin:8px 0 14px;font-size:22px;text-align:center}
     .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
     .field label{font-size:13px;color:#b7c5e6}
@@ -64,18 +61,13 @@
       border:1px solid rgba(110,231,168,.35);color:var(--good);font-weight:700}
     .row{display:flex;gap:10px;flex-wrap:wrap}
     .row .btn{flex:1}
-    @keyframes floatIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-    @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-    @keyframes glowPulse{0%,100%{box-shadow:0 10px 30px rgba(47,109,246,.35), 0 0 0 0 rgba(47,109,246,.0)}
-      50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177,255,.08)}}
     .method{margin:18px 2px 0;color:#9fb2d9;font-size:13px;text-align:center}
   </style>
 </head>
 <body>
   <div class="container">
     <h1 class="title">PUBG Mobile Shop</h1>
-    <div class="tabs" role="tablist">
+    <div class="tabs">
       <div class="tab active" data-target="#uc">UC</div>
       <div class="tab" data-target="#shop">Shop</div>
     </div>
@@ -88,7 +80,6 @@
     </section>
   </div>
 
-  <!-- Overlay -->
   <div class="overlay" id="orderOverlay">
     <div class="modal">
       <p class="pill" id="chosenItem">Item: –</p>
@@ -115,10 +106,7 @@
   </div>
 
   <script>
-    // init emailjs
-    (function(){
-      emailjs.init("d-Sp9xIgxQsYwGR1-");
-    })();
+    (function(){ emailjs.init("d-Sp9xIgxQsYwGR1-"); })();
 
     const CASH_NUMBER = '01124054325';
     const UC_ITEMS = [
@@ -129,7 +117,6 @@
       {title:'1845 UC',price:1125,img:'uc.jpg'},
       {title:'3940 UC',price:2250,img:'uc.jpg'}
     ];
-
     const SHOP_ITEMS = [
       {title:'Elite Pass 1–50',  price:260, tag:'Pass', img:'pass50.jpg'},
       {title:'Elite Pass 1–100', price:540, tag:'Pass', img:'pass100.jpg'},
@@ -139,9 +126,8 @@
       {title:'Upgrade Materials Bundle', price:135, tag:'Bundle',img:'upgrade.jpg'}
     ];
 
-    const ucGrid   = document.getElementById('ucGrid');
+    const ucGrid = document.getElementById('ucGrid');
     const shopGrid = document.getElementById('shopGrid');
-
     function makeCard(item){
       const card = document.createElement('div');
       card.className = 'card';
@@ -154,7 +140,6 @@
       `;
       return card;
     }
-
     UC_ITEMS.forEach(i => ucGrid.appendChild(makeCard(i)));
     SHOP_ITEMS.forEach(i => shopGrid.appendChild(makeCard(i)));
 
@@ -195,20 +180,18 @@
         return;
       }
       const templateParams = {
-        item: currentItem.title,
-        price: currentItem.price + " EGP",
-        player_id: idInput.value,
-        player_name: nameInput.value,
-        phone: phoneInput.value,
-        cash_number: CASH_NUMBER
+        orderItem: currentItem.title,
+        orderPrice: currentItem.price,
+        playerId: idInput.value,
+        playerName: nameInput.value,
+        phone: phoneInput.value
       };
-
       emailjs.send("service_0prsur8","template_6myqisi", templateParams)
         .then(()=>{
           alert("✅ Order Sent Successfully!");
           closeOrderForm();
         }, (err)=>{
-          alert("❌ Failed to send order: " + JSON.stringify(err));
+          alert("❌ Failed: " + JSON.stringify(err));
         });
     }
   </script>
