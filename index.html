@@ -93,14 +93,15 @@
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 10px;
       flex-wrap: wrap;
     }
     .footer-links a {
       color: white;
-      padding: 12px 20px;
-      border-radius: 50px;
+      padding: 8px 14px;  /* صغرت حجم الأزرار */
+      border-radius: 40px;
       font-weight: bold;
+      font-size: 14px;
       text-decoration: none;
       transition: 0.3s;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
@@ -111,6 +112,9 @@
     }
     .wa-group {
       background: linear-gradient(135deg, #ff6f61, #d7263d);
+    }
+    .tg-group {
+      background: linear-gradient(135deg, #0088cc, #005f99);
     }
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,6 +127,7 @@
       <a href="news.html">News</a>
       <a href="shop.html">Shop</a>
       <a href="us.html">Language</a>
+      <a href="how-to-buy.html">How to Buy</a> <!-- زرار جديد -->
     </div>
   </div>
 
@@ -139,10 +144,11 @@
 
   <!-- فوتر -->
   <footer>
-    <h3>Connect with us on WhatsApp</h3>
+    <h3>Connect with us</h3>
     <div class="footer-links">
-      <a href="https://wa.me/201124054325" target="_blank" class="wa-chat">💬 Chat on WhatsApp</a>
-      <a href="https://chat.whatsapp.com/GXVNF2SnmFJL1EaCwzDSQB?mode=ac_t" target="_blank" class="wa-group">🔗 Join Our Group</a>
+      <a href="https://wa.me/201124054325" target="_blank" class="wa-chat">💬 WhatsApp</a>
+      <a href="https://chat.whatsapp.com/GXVNF2SnmFJL1EaCwzDSQB?mode=ac_t" target="_blank" class="wa-group">🔗 WhatsApp Group</a>
+      <a href="https://t.me/+JhvxYFjnWYg5Y2M0" target="_blank" class="tg-group">📢 Telegram Group</a>
     </div>
   </footer>
 
