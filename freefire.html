@@ -1,154 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Free Fire Shop</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --bg:#0b1420; --card:#111b2a; --accent:#2f6df6; --accent-2:#1bb1ff;
-    --text:#e9f1ff; --muted:#98a6c7; --good:#6ee7a8; --danger:#ff6b6b;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%,#0b1420 100%);
-    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  }
-  .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}
-
-  .title{
-    text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;
-    text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35);
-    animation:floatIn .6s ease-out both;
-  }
-
-  .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;
-        background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}
-  .tab{
-    flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;
-    font-weight:700;transition:.25s;user-select:none;color:var(--muted);
-  }
-  .tab.active{color:#fff;background:linear-gradient(180deg,var(--accent),#1342c4);box-shadow:0 8px 28px rgba(47,109,246,.35)}
-  .tab:not(.active):hover{color:#dbe7ff;background:rgba(255,255,255,.06)}
-
-  .section{display:none}
-  .section.active{display:block}
-
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}
-  .card{
-    background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:18px;padding:20px;position:relative;overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,0.03);
-    animation:fadeUp .45s ease both;
-  }
-  .card img{
-    width:100%;border-radius:12px;margin-bottom:10px;object-fit:cover;max-height:200px
-  }
-  .card h3{margin:0 0 8px;font-size:22px;letter-spacing:.5px}
-  .price{color:#cfe1ff;font-weight:600;margin-bottom:14px;opacity:.95}
-  .pill{
-    display:inline-block;margin-bottom:10px;padding:6px 10px;border-radius:999px;font-size:12px;
-    background:rgba(47,109,246,.12);border:1px solid rgba(47,109,246,.4);color:#b8d1ff
-  }
-
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;width:min(200px,100%);
-    padding:12px 16px;border:none;border-radius:14px;background:linear-gradient(180deg,var(--accent),#1342c4);
-    color:#fff;font-weight:800;letter-spacing:.3px;cursor:pointer;transition:.2s;position:relative;
-    box-shadow:0 10px 30px rgba(47,109,246,.35);
-  }
-  .btn:hover{transform:translateY(-1px);filter:saturate(1.2)}
-  .btn:active{transform:translateY(0)}
-  .btn.glow{animation:glowPulse 2.4s ease-in-out infinite}
-
-  .overlay{position:fixed;inset:0;background:rgba(0,10,20,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:30}
-  .overlay.show{display:flex}
-  .modal{
-    width:min(560px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;padding:20px 18px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;
-    animation:pop .2s ease-out both;
-  }
-  .modal h3{margin:8px 0 14px;font-size:22px}
-  .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-  .field label{font-size:13px;color:#b7c5e6}
-  .input{
-    border:1px solid rgba(255,255,255,.12);background:#0b1420;color:#e9f1ff;border-radius:12px;
-    padding:12px 14px;outline:none;font-size:15px;transition:border .2s, box-shadow .2s
-  }
-  .input:focus{border-color:rgba(47,109,246,.8);box-shadow:0 0 0 3px rgba(47,109,246,.25)}
-  .paynote{
-    margin:12px 0 16px;padding:10px 12px;border-radius:12px;background:rgba(110,231,168,.08);
-    border:1px solid rgba(110,231,168,.35);color:var(--good);font-weight:700
-  }
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  .row .btn{flex:1}
-  .close{
-    position:absolute;right:10px;top:10px;background:transparent;border:none;color:#c8d7ff;
-    font-size:22px;cursor:pointer
-  }
-
-  .chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 6px}
-  .chip{
-    text-align:center;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
-    background:#0b1420;color:#d7e6ff;font-weight:700;cursor:pointer;transition:.2s
-  }
-  .chip:hover{border-color:rgba(47,109,246,.7)}
-  .chip.active{border-color:rgba(47,109,246,.9);box-shadow:0 0 0 3px rgba(47,109,246,.25)}
-
-  @keyframes floatIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
-  @keyframes glowPulse{
-    0%,100%{box-shadow:0 10px 30px rgba(47,109,246,.35), 0 0 0 0 rgba(47,109,246,.0)}
-    50%{box-shadow:0 14px 40px rgba(27,177,255,.45), 0 0 0 8px rgba(27,177,255,.08)}
-  }
-
-  .method{margin:18px 2px 0;color:#9fb2d9;font-size:13px;text-align:center}
-</style>
+  <meta charset="UTF-8">
+  <title>Zza3iim Shop</title>
+  <style>
+    body {
+      background:#0b1420;
+      color:#fff;
+      font-family:Arial, sans-serif;
+      margin:0;
+      padding:20px;
+    }
+    h1 {
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+    }
+    .card {
+      background:#111b2a;
+      border-radius:12px;
+      padding:15px;
+      text-align:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.4);
+      transition:transform 0.2s;
+    }
+    .card:hover {
+      transform:scale(1.05);
+    }
+    .card img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:10px;
+    }
+    .price {
+      margin:10px 0;
+      font-weight:bold;
+      color:#1bb1ff;
+    }
+    .btn {
+      background:#2f6df6;
+      border:none;
+      padding:10px 15px;
+      border-radius:8px;
+      color:#fff;
+      cursor:pointer;
+      transition:background 0.3s;
+    }
+    .btn:hover {
+      background:#1bb1ff;
+    }
+    .pill {
+      display:inline-block;
+      background:#2f6df6;
+      color:#fff;
+      padding:3px 8px;
+      border-radius:12px;
+      font-size:12px;
+      margin-bottom:5px;
+    }
+    section {
+      margin-bottom:40px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Free Fire Shop</h1>
+  <h1>Zza3iim Shop</h1>
 
-    <div class="tabs" role="tablist">
-      <div class="tab active" data-target="#topup">Top Up</div>
-      <div class="tab" data-target="#shop">Shop</div>
-    </div>
+  <!-- Diamonds Section -->
+  <section>
+    <h2>Diamonds Top Up</h2>
+    <div class="grid" id="topupGrid"></div>
+  </section>
 
-    <section id="topup" class="section active">
-      <div class="grid" id="topupGrid"></div>
-    </section>
+  <!-- Shop Section -->
+  <section>
+    <h2>Shop Items</h2>
+    <div class="grid" id="shopGrid"></div>
+  </section>
 
-    <section id="shop" class="section">
-      <div class="grid" id="shopGrid"></div>
-      <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>
-    </section>
-  </div>
-
-  <!-- Modals (نفس الكود الأساسي للطلبات والليفل) -->
-
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    const EMAILJS_SERVICE = 'service_0prsur8';
-    const EMAILJS_TEMPLATE = 'template_6myqisi';
-    const EMAILJS_PUBLIC  = 'd-Sp9xIgxQsYwGR1-';
-    const CASH_NUMBER     = '01124054325';
-
     /* ================ DATA ==================== */
+    // Diamonds Top Up
     const DIAMONDS = [
       {title:'100 Diamonds',  price:55,  img:"100d.jpg"},
-      {title:'210 Diamonds',  price:110, img:"100d.jpg"},
-      {title:'310 Diamonds',  price:160, img:"100d.jpg"},
-      {title:'520 Diamonds',  price:260, img:"100d.jpg"},
-      {title:'1060 Diamonds', price:510, img:"100d.jpg"},
-      {title:'2200 Diamonds', price:1010,img:"100d.jpg"},
+      {title:'210 Diamonds',  price:110, img:"210d.jpg"},
+      {title:'310 Diamonds',  price:160, img:"310d.jpg"},
+      {title:'520 Diamonds',  price:260, img:"520d.jpg"},
+      {title:'1060 Diamonds', price:510, img:"1060d.jpg"},
+      {title:'2200 Diamonds', price:1010,img:"2200d.jpg"},
     ];
 
+    // Shop items
     const SHOP_ITEMS = [
       {title:'Level Offer', price:null, tag:'Pass', img:"levelup.jpg"},
       {title:'Weekly Membership', price:100, tag:'Membership', img:"1w.jpg"},
@@ -184,6 +132,14 @@
         shopGrid.appendChild(makeCard(i, ()=>openOrderForm(i.title, i.price)));
       }
     });
+
+    /* ================ PLACEHOLDER FUNCTIONS ================== */
+    function openOrderForm(title, price){
+      alert(`Order: ${title} - ${price} EGP`);
+    }
+    function openLevelModal(){
+      alert("Level Offer Modal Opened!");
+    }
   </script>
 </body>
 </html>
