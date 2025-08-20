@@ -41,19 +41,44 @@
 </style>
 </head>
 <body>
-<div class="container">
-  <h1 class="title">Free Fire Shop</h1>
-  <div class="tabs" role="tablist">
-    <div class="tab active" data-target="#topup">Top Up</div>
-    <div class="tab" data-target="#shop">Shop</div>
-  </div>
-  <section id="topup" class="section active">
-    <div class="grid" id="topupGrid"></div>
-  </section>
-  <section id="shop" class="section">
-    <div class="grid" id="shopGrid"></div>
-  </section>
-</div>
+<div class="container">      
+    <h1 class="title">Free Fire Shop</h1>  <!-- Tabs -->      
+<div class="tabs" role="tablist">      
+  <div class="tab active" role="tab" aria-selected="true" data-target="#topup">Top Up</div>      
+  <div class="tab" role="tab" aria-selected="false" data-target="#shop">Shop</div>      
+</div>    <!-- TOPUP SECTION (Diamonds) -->    <section id="topup" class="section active">      
+  <div class="grid" id="topupGrid"></div>      
+</section>    <!-- SHOP SECTION -->    <section id="shop" class="section">      
+  <div class="grid" id="shopGrid"></div>      
+  <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>      
+</section>    </div>    <!-- ORDER MODAL -->    <div class="overlay" id="orderOverlay" aria-hidden="true">      
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">      
+      <button class="close" onclick="closeOrderForm()" aria-label="Close">✕</button>      
+      <h3 id="modalTitle">Complete Your Order</h3>      
+      <p class="pill" id="chosenItem">Item: –</p>      
+      <p class="price" id="chosenPrice">Price: – EGP</p>  <div class="field">      
+    <label for="playerId">Your Game ID</label>      
+    <input id="playerId" class="input" placeholder="e.g. 123456789" />      
+  </div>      
+  <div class="field">      
+    <label for="playerName">Player Name</label>      
+    <input id="playerName" class="input" placeholder="Your in-game name" />      
+  </div>      
+  <div class="field">      
+    <label for="phone">Phone Number</label>      
+    <input id="phone" class="input" placeholder="01XXXXXXXXX" />      
+  </div>      <div class="paynote">💳 Transfer to Etisalat Cash: <strong id="cashNum">01124054325</strong></div>      <div class="row">      
+    <button class="btn glow" id="confirmBtn" onclick="sendOrder()">Confirm Order</button>      
+    <button class="btn" style="background:linear-gradient(180deg,#243043,#161f2e)" onclick="closeOrderForm()">Cancel</button>      
+  </div>      
+</div>    </div>    <!-- LEVEL OFFER MODAL -->    <div class="overlay" id="levelOverlay" aria-hidden="true">      
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="levelTitle">      
+      <button class="close" onclick="closeLevelModal()" aria-label="Close">✕</button>      
+      <h3 id="levelTitle">Level Offer</h3>      
+      <p class="price" id="levelPriceInfo">Choose a level or buy all</p>  <div class="chips" id="levelChips"><!-- chips injected --></div>      <div class="row" style="margin-top:8px">      
+    <button class="btn glow" onclick="buySelectedLevel()">Buy</button>      
+    <button class="btn" onclick="buyAllLevels()">Buy All Levels</button>      
+      </div>
 
 <script>
   // Diamonds Top Up
