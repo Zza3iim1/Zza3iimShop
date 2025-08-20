@@ -1,185 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Free Fire Shop</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --bg:#0b1420; --card:#111b2a; --accent:#2f6df6; --accent-2:#1bb1ff;
-    --text:#e9f1ff; --muted:#98a6c7; --good:#6ee7a8; --danger:#ff6b6b;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;background:radial-gradient(1200px 600px at 50% -10%,#193152 0%,#0b1420 60%,#0b1420 100%);
-    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  }
-  .container{max-width:980px;margin:0 auto;padding:28px 16px 80px}
-
-  .title{text-align:center;margin:12px 0 24px;font-size:40px;font-weight:800;letter-spacing:1px;
-    text-shadow:0 0 8px rgba(47,109,246,.75),0 0 30px rgba(27,177,255,.35)}
-
-  .tabs{display:flex;gap:12px;justify-content:center;margin:10px auto 22px;max-width:520px;
-        background:rgba(255,255,255,.04);padding:8px;border-radius:18px;backdrop-filter:blur(6px)}
-  .tab{flex:1;text-align:center;padding:12px 14px;border-radius:14px;cursor:pointer;
-       font-weight:700;transition:.25s;user-select:none;color:var(--muted)}
-  .tab.active{color:#fff;background:linear-gradient(180deg,var(--accent),#1342c4);box-shadow:0 8px 28px rgba(47,109,246,.35)}
-  .tab:not(.active):hover{color:#dbe7ff;background:rgba(255,255,255,.06)}
-
-  .section{display:none}
-  .section.active{display:block}
-
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,#101a29,#0e1624 60%,#0b1420);
-        border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:20px;position:relative;overflow:hidden}
-  .card img{width:100%;border-radius:12px;margin-bottom:10px;object-fit:cover;max-height:200px}
-  .card h3{margin:0 0 8px;font-size:22px;letter-spacing:.5px}
-  .price{color:#cfe1ff;font-weight:600;margin-bottom:14px}
-  .pill{display:inline-block;margin-bottom:10px;padding:6px 10px;border-radius:999px;font-size:12px;
-        background:rgba(47,109,246,.12);border:1px solid rgba(47,109,246,.4);color:#b8d1ff}
-  .btn{display:inline-flex;align-items:center;justify-content:center;width:min(200px,100%);
-       padding:12px 16px;border:none;border-radius:14px;background:linear-gradient(180deg,var(--accent),#1342c4);
-       color:#fff;font-weight:800;cursor:pointer}
-  .btn.glow{animation:glowPulse 2.4s ease-in-out infinite}
-
-  .overlay{position:fixed;inset:0;background:rgba(0,10,20,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:30}
-  .overlay.show{display:flex}
-  .modal{width:min(560px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);
-         border-radius:18px;padding:20px;position:relative}
-  .modal h3{margin:8px 0 14px;font-size:22px}
-  .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-  .input{border:1px solid rgba(255,255,255,.12);background:#0b1420;color:#e9f1ff;border-radius:12px;
-         padding:12px 14px;outline:none;font-size:15px}
-  .close{position:absolute;right:10px;top:10px;background:transparent;border:none;color:#c8d7ff;
-         font-size:22px;cursor:pointer}
-  .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
-  .chip{padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b1420;
-        color:#d7e6ff;font-weight:700;text-align:center;cursor:pointer}
-  .chip.active{border-color:rgba(47,109,246,.9);box-shadow:0 0 0 3px rgba(47,109,246,.25)}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zza3iim Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#0b1420;
+      color:#fff;
+      margin:0;
+      padding:20px;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .tab {
+      flex:1;
+      padding:12px;
+      text-align:center;
+      background:#111b2a;
+      border:1px solid #2f6df6;
+      cursor:pointer;
+      transition:.3s;
+    }
+    .tab.active {
+      background:#2f6df6;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+      gap:15px;
+    }
+    .card {
+      background:#111b2a;
+      padding:15px;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 0 10px rgba(0,0,0,.4);
+      position:relative;
+    }
+    .pill {
+      position:absolute;
+      top:10px; left:10px;
+      background:#2f6df6;
+      padding:4px 8px;
+      border-radius:20px;
+      font-size:12px;
+    }
+    .price { margin:8px 0; font-weight:bold; color:#1bb1ff; }
+    .btn {
+      background:#2f6df6;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      color:#fff;
+      margin:5px;
+      transition:.3s;
+    }
+    .btn:hover { background:#1bb1ff; }
+    .btn-group {
+      display:flex;
+      justify-content:center;
+      gap:5px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Free Fire Shop</h1>
-
-    <div class="tabs">
-      <div class="tab active" data-target="#topup">Top Up</div>
-      <div class="tab" data-target="#shop">Shop</div>
-    </div>
-
-    <section id="topup" class="section active">
-      <div class="grid" id="topupGrid"></div>
-    </section>
-
-    <section id="shop" class="section">
-      <div class="grid" id="shopGrid"></div>
-      <p class="method">Payment: Etisalat Cash — <strong>01124054325</strong></p>
-    </section>
+  <h1>Zza3iim Shop</h1>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('diamonds')">Diamonds</div>
+    <div class="tab" onclick="showTab('shop')">Shop</div>
   </div>
 
-  <!-- Order Modal -->
-  <div id="orderOverlay" class="overlay">
-    <div class="modal">
-      <button class="close" onclick="closeOrder()">×</button>
-      <h3 id="orderTitle">Order</h3>
-      <div class="field"><label>Player ID</label><input id="playerId" class="input" /></div>
-      <div class="field"><label>Confirm Player ID</label><input id="playerId2" class="input" /></div>
-      <div class="field"><label>Price</label><input id="orderPrice" class="input" disabled /></div>
-      <button class="btn" onclick="sendOrder()">Send Order</button>
-    </div>
-  </div>
+  <!-- Diamonds Grid -->
+  <div id="diamonds" class="grid"></div>
 
-  <!-- Level Modal -->
-  <div id="levelOverlay" class="overlay">
-    <div class="modal">
-      <button class="close" onclick="closeLevel()">×</button>
-      <h3>Level Offer</h3>
-      <div class="chips">
-        <div class="chip" data-price="100">Level 1 - 100 EGP</div>
-        <div class="chip" data-price="200">Level 2 - 200 EGP</div>
-        <div class="chip" data-price="300">Level 3 - 300 EGP</div>
-      </div>
-      <button class="btn" onclick="confirmLevel()">Confirm</button>
-    </div>
-  </div>
+  <!-- Shop Grid -->
+  <div id="shop" class="grid" style="display:none"></div>
 
-<script>
-  const DIAMONDS = [
-    {title:'100 Diamonds',  price:55,  img:"100d.jpg"},
-    {title:'210 Diamonds',  price:110, img:"100d.jpg"},
-    {title:'310 Diamonds',  price:160, img:"100d.jpg"},
-    {title:'520 Diamonds',  price:260, img:"100d.jpg"},
-    {title:'1060 Diamonds', price:510, img:"100d.jpg"},
-    {title:'2200 Diamonds', price:1010,img:"100d.jpg"},
-  ];
-  const SHOP_ITEMS = [
-    {title:'Level Offer', price:null, tag:'Pass', img:"levelup.jpg"},
-    {title:'Weekly Membership', price:100, tag:'Membership', img:"1w.jpg"},
-    {title:'Monthly Membership', price:500, tag:'Membership', img:"1m.jpg"},
-  ];
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_PUBLIC_KEY"); // ⚠️ حط الـ Public Key بتاعك هنا
+    })();
+  </script>
 
-  const topupGrid = document.getElementById('topupGrid');
-  const shopGrid  = document.getElementById('shopGrid');
-  const makeCard = (item, onClick) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      ${item.img ? `<img src="${item.img}" alt="${item.title}">` : ``}
-      ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}
-      <h3>${item.title}</h3>
-      ${item.price!==null ? `<div class="price">${item.price} EGP</div>` : `<div class="price">Choose option</div>`}
-      <button class="btn glow">Buy</button>`;
-    card.querySelector('.btn').addEventListener('click', onClick);
-    return card;
-  };
+  <script>
+    /* ================ DATA ==================== */
+    // Diamonds
+    const DIAMONDS = [
+      {title:'100 Diamonds',  price:55,  img:"100d.jpg"},
+      {title:'210 Diamonds',  price:110, img:"210d.jpg"},
+      {title:'310 Diamonds',  price:160, img:"310d.jpg"},
+      {title:'520 Diamonds',  price:260, img:"520d.jpg"},
+      {title:'1060 Diamonds', price:510, img:"1060d.jpg"},
+      {title:'2200 Diamonds', price:1010,img:"2200d.jpg"},
+    ];
 
-  DIAMONDS.forEach(i=>topupGrid.appendChild(makeCard(i, ()=>openOrderForm(i.title, i.price))));
-  SHOP_ITEMS.forEach(i=>{
-    if(i.title === 'Level Offer'){
-      shopGrid.appendChild(makeCard(i, ()=>openLevelModal()));
-    }else{
-      shopGrid.appendChild(makeCard(i, ()=>openOrderForm(i.title, i.price)));
-    }
-  });
+    // Shop Items
+    const SHOP_ITEMS = [
+      {title:'Level Offer 1', price:150, tag:'Pass', img:"level1.jpg"},
+      {title:'Level Offer 2', price:300, tag:'Pass', img:"level2.jpg"},
+      {title:'Level Offer 3', price:450, tag:'Pass', img:"level3.jpg"},
+      {title:'Weekly Membership', price:100, tag:'Membership', img:"1w.jpg"},
+      {title:'Monthly Membership', price:500, tag:'Membership', img:"1m.jpg"},
+    ];
 
-  // Tabs
-  document.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click',()=>{
+    /* ================ RENDER ================== */
+    const diamondsGrid = document.getElementById('diamonds');
+    const shopGrid  = document.getElementById('shop');
+
+    const makeCard = (item) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      let buttons = "";
+
+      if(item.title.includes("Level Offer")){
+        buttons = `
+          <div class="btn-group">
+            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>
+            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy All')">Buy All</button>
+          </div>`;
+      }else{
+        buttons = `<button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>`;
+      }
+
+      card.innerHTML = `
+        ${item.img ? `<img src="${item.img}" alt="${item.title}" style="width:100%;border-radius:12px;margin-bottom:10px">` : ``}
+        ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}
+        <h3>${item.title}</h3>
+        <div class="price">${item.price} EGP</div>
+        ${buttons}
+      `;
+      return card;
+    };
+
+    DIAMONDS.forEach(i=>{
+      diamondsGrid.appendChild(makeCard(i));
+    });
+
+    SHOP_ITEMS.forEach(i=>{
+      shopGrid.appendChild(makeCard(i));
+    });
+
+    /* ================ TAB SWITCH =============== */
+    function showTab(tab){
+      document.getElementById('diamonds').style.display = (tab==='diamonds') ? 'grid':'none';
+      document.getElementById('shop').style.display     = (tab==='shop') ? 'grid':'none';
+
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      document.querySelector(tab.dataset.target).classList.add('active');
-    });
-  });
+      document.querySelector(`.tab:nth-child(${tab==='diamonds'?1:2})`).classList.add('active');
+    }
 
-  // Order Modal
-  function openOrderForm(title, price){
-    document.getElementById('orderTitle').innerText = title;
-    document.getElementById('orderPrice').value = price+" EGP";
-    document.getElementById('orderOverlay').classList.add('show');
-  }
-  function closeOrder(){document.getElementById('orderOverlay').classList.remove('show')}
-  function sendOrder(){alert("Order Sent!")}
-
-  // Level Modal
-  let selectedLevel=null;
-  document.querySelectorAll('.chip').forEach(chip=>{
-    chip.addEventListener('click',()=>{
-      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      chip.classList.add('active');
-      selectedLevel=chip.dataset.price;
-    });
-  });
-  function openLevelModal(){document.getElementById('levelOverlay').classList.add('show')}
-  function closeLevel(){document.getElementById('levelOverlay').classList.remove('show')}
-  function confirmLevel(){
-    if(selectedLevel){openOrderForm("Level Offer", selectedLevel); closeLevel();}
-    else{alert("Please select level")}
-  }
-</script>
+    /* ================ EMAILJS ORDER ============ */
+    function sendOrder(itemTitle, itemPrice, type){
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+        item_name: itemTitle,
+        item_price: itemPrice + " EGP",
+        order_type: type
+      }).then(()=>{
+        alert("✅ تم إرسال الأوردر بنجاح!");
+      }).catch((err)=>{
+        alert("❌ حصل خطأ: " + JSON.stringify(err));
+      });
+    }
+  </script>
 </body>
 </html>
