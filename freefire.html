@@ -109,6 +109,36 @@
       document.querySelector(tab.dataset.target).classList.add('active');
     });
   });
+  /* ============== EMAILJS SEND ============== */
+emailjs.init(EMAILJS_PUBLIC);
+
+async function sendOrder(){
+const playerId   = idInput.value.trim();
+const playerName = nameInput.value.trim();
+const phone      = phoneInput.value.trim();
+
+if(!playerId || !playerName || !phone){
+alert('Please fill all fields (ID, Name, Phone).');
+return;
+}
+
+const templateParams = {
+orderItem:  currentItem.title,
+orderPrice: currentItem.price,
+playerId,
+playerName,
+phone
+};
+
+try{
+await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, templateParams);
+alert('✅ Order sent successfully! Check your email.');
+closeOrderForm();
+}catch(err){
+console.error(err);
+alert('❌ Failed to send. Check your EmailJS keys / template.');
+}
+}
 </script>
 </body>
 </html>
