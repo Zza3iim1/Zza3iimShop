@@ -2,96 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zza3iim Shop</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background:#0b1420;
-      color:#fff;
-      margin:0;
-      padding:20px;
+    :root{
+      --bg:#0b1420;
+      --card:#111b2a;
+      --accent:#2f6df6;
+      --accent-2:#1bb1ff;
+      --text:#fff;
     }
-    .tabs {
-      display: flex;
-      margin-bottom: 20px;
-    }
-    .tab {
-      flex:1;
-      padding:12px;
-      text-align:center;
-      background:#111b2a;
-      border:1px solid #2f6df6;
-      cursor:pointer;
-      transition:.3s;
-    }
-    .tab.active {
-      background:#2f6df6;
-    }
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-      gap:15px;
-    }
-    .card {
-      background:#111b2a;
-      padding:15px;
-      border-radius:12px;
-      text-align:center;
-      box-shadow:0 0 10px rgba(0,0,0,.4);
-      position:relative;
-    }
-    .pill {
-      position:absolute;
-      top:10px; left:10px;
-      background:#2f6df6;
-      padding:4px 8px;
-      border-radius:20px;
-      font-size:12px;
-    }
-    .price { margin:8px 0; font-weight:bold; color:#1bb1ff; }
-    .btn {
-      background:#2f6df6;
-      border:none;
-      padding:8px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      color:#fff;
-      margin:5px;
-      transition:.3s;
-    }
-    .btn:hover { background:#1bb1ff; }
-    .btn-group {
-      display:flex;
-      justify-content:center;
-      gap:5px;
-    }
+    body{margin:0;font-family:sans-serif;background:var(--bg);color:var(--text);}
+    h1{text-align:center;padding:20px 0;color:var(--accent);}
+    .tabs{display:flex;justify-content:center;margin-bottom:20px;}
+    .tabs button{background:var(--card);color:var(--text);border:none;padding:10px 20px;margin:0 5px;cursor:pointer;border-radius:8px;font-size:16px;transition:0.3s;}
+    .tabs button.active{background:var(--accent);color:#fff;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:20px;}
+    .card{background:var(--card);padding:15px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.5);text-align:center;position:relative;}
+    .card img{width:100%;border-radius:12px;margin-bottom:10px;}
+    .pill{position:absolute;top:10px;left:10px;background:var(--accent-2);padding:4px 8px;border-radius:12px;font-size:12px;}
+    .price{margin:10px 0;font-size:18px;font-weight:bold;color:var(--accent);}
+    .btn{background:var(--accent);border:none;padding:10px 15px;color:#fff;border-radius:8px;cursor:pointer;transition:0.3s;}
+    .btn:hover{background:var(--accent-2);}
+    .btn-group{display:flex;gap:10px;justify-content:center;}
   </style>
 </head>
 <body>
   <h1>Zza3iim Shop</h1>
+
+  <!-- Tabs -->
   <div class="tabs">
-    <div class="tab active" onclick="showTab('diamonds')">Diamonds</div>
-    <div class="tab" onclick="showTab('shop')">Shop</div>
+    <button class="tablink active" onclick="openTab('diamonds')">Diamonds</button>
+    <button class="tablink" onclick="openTab('shop')">Shop</button>
   </div>
 
   <!-- Diamonds Grid -->
   <div id="diamonds" class="grid"></div>
 
   <!-- Shop Grid -->
-  <div id="shop" class="grid" style="display:none"></div>
+  <div id="shop" class="grid" style="display:none;"></div>
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("YOUR_PUBLIC_KEY"); // ⚠️ حط الـ Public Key بتاعك هنا
+      emailjs.init("YOUR_PUBLIC_KEY"); // حط الـ Public Key بتاعك من EmailJS
     })();
-  </script>
 
-  <script>
     /* ================ DATA ==================== */
-    // Diamonds
     const DIAMONDS = [
       {title:'100 Diamonds',  price:55,  img:"100d.jpg"},
       {title:'210 Diamonds',  price:110, img:"210d.jpg"},
@@ -101,62 +58,22 @@
       {title:'2200 Diamonds', price:1010,img:"2200d.jpg"},
     ];
 
-    // Shop Items
     const SHOP_ITEMS = [
       {title:'Level Offer 1', price:150, tag:'Pass', img:"level1.jpg"},
-      {title:'Level Offer 2', price:300, tag:'Pass', img:"level2.jpg"},
-      {title:'Level Offer 3', price:450, tag:'Pass', img:"level3.jpg"},
+      {title:'Level Offer 2', price:250, tag:'Pass', img:"level2.jpg"},
+      {title:'Level Offer 3', price:400, tag:'Pass', img:"level3.jpg"},
       {title:'Weekly Membership', price:100, tag:'Membership', img:"1w.jpg"},
       {title:'Monthly Membership', price:500, tag:'Membership', img:"1m.jpg"},
     ];
 
-    /* ================ RENDER ================== */
-    const diamondsGrid = document.getElementById('diamonds');
-    const shopGrid  = document.getElementById('shop');
-
-    const makeCard = (item) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      let buttons = "";
-
-      if(item.title.includes("Level Offer")){
-        buttons = `
-          <div class="btn-group">
-            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>
-            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy All')">Buy All</button>
-          </div>`;
-      }else{
-        buttons = `<button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>`;
-      }
-
-      card.innerHTML = `
-        ${item.img ? `<img src="${item.img}" alt="${item.title}" style="width:100%;border-radius:12px;margin-bottom:10px">` : ``}
-        ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}
-        <h3>${item.title}</h3>
-        <div class="price">${item.price} EGP</div>
-        ${buttons}
-      `;
-      return card;
-    };
-
-    DIAMONDS.forEach(i=>{
-      diamondsGrid.appendChild(makeCard(i));
-    });
-
-    SHOP_ITEMS.forEach(i=>{
-      shopGrid.appendChild(makeCard(i));
-    });
-
-    /* ================ TAB SWITCH =============== */
-    function showTab(tab){
-      document.getElementById('diamonds').style.display = (tab==='diamonds') ? 'grid':'none';
-      document.getElementById('shop').style.display     = (tab==='shop') ? 'grid':'none';
-
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      document.querySelector(`.tab:nth-child(${tab==='diamonds'?1:2})`).classList.add('active');
+    /* ================ FUNCTIONS ================== */
+    function openTab(tab){
+      document.getElementById('diamonds').style.display = (tab==='diamonds'?'grid':'none');
+      document.getElementById('shop').style.display = (tab==='shop'?'grid':'none');
+      document.querySelectorAll('.tablink').forEach(btn=>btn.classList.remove('active'));
+      event.target.classList.add('active');
     }
 
-    /* ================ EMAILJS ORDER ============ */
     function sendOrder(itemTitle, itemPrice, type){
       emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
         item_name: itemTitle,
@@ -168,6 +85,41 @@
         alert("❌ حصل خطأ: " + JSON.stringify(err));
       });
     }
+
+    function makeCard(item){
+      let buttons = "";
+      if(item.title.includes("Level Offer")){
+        buttons = `
+          <div class="btn-group">
+            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>
+            <button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy All')">Buy All</button>
+          </div>`;
+      }else{
+        buttons = `<button class="btn" onclick="sendOrder('${item.title}', '${item.price}', 'Buy')">Buy</button>`;
+      }
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        ${item.img ? `<img src="${item.img}" alt="${item.title}">` : ``}
+        ${item.tag ? `<span class="pill">${item.tag}</span>` : ``}
+        <h3>${item.title}</h3>
+        <div class="price">${item.price} EGP</div>
+        ${buttons}
+      `;
+      return card;
+    }
+
+    /* ================ RENDER ================== */
+    const diamondsGrid = document.getElementById('diamonds');
+    const shopGrid  = document.getElementById('shop');
+
+    DIAMONDS.forEach(i=>{
+      diamondsGrid.appendChild(makeCard(i));
+    });
+
+    SHOP_ITEMS.forEach(i=>{
+      shopGrid.appendChild(makeCard(i));
+    });
   </script>
 </body>
 </html>
